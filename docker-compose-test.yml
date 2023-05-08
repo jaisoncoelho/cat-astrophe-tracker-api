@@ -1,0 +1,21 @@
+version: '3.3'
+services:
+  app:
+    build: .
+    ports:
+      - "3000:3000"
+    depends_on:
+      - db
+    environment:
+      RAILS_ENV: test
+      RAILS_MASTER_KEY: "${RAILS_MASTER_KEY}"
+      DATABASE_HOST: db
+      DATABASE_USERNAME: "${DATABASE_USERNAME_TEST}"
+      DATABASE_PASSWORD: "${DATABASE_PASSWORD_TEST}"
+    depends_on:
+      - db        
+  db:
+    image: postgres:13
+    environment:
+      POSTGRES_PASSWORD: "${DATABASE_PASSWORD_TEST}"
+      POSTGRES_DB: cat_astrophe_tracker_api_test
